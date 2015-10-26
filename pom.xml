@@ -6,7 +6,40 @@
 
   <groupId>io.github.pyranja</groupId>
   <artifactId>hamcrest-jaxrs</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.0.0-SNAPSHOT</version>
+
+  <name>jaxrs-test-tools</name>
+  <description>utilities for testing JAX-RS applications</description>
+  <url>https://github.com/pyranja/jaxrs-test-tools</url>
+  <inceptionYear>2015</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>pyranja</id>
+      <name>Chris Borckholder</name>
+      <email>chris.borckholder@gmail.com</email>
+      <url>http://pyranja.github.io/</url>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/pyranja/jaxrs-test-tools</url>
+    <connection>scm:git:https://github.com/pyranja/jaxrs-test-tools.git</connection>
+    <developerConnection>scm:git:git@github.com:pyranja/jaxrs-test-tools.git</developerConnection>
+  </scm>
+
+  <issueManagement>
+    <system>github-issues</system>
+    <url>https://github.com/pyranja/jaxrs-test-tools/issues</url>
+  </issueManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
