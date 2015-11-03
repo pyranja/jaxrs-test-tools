@@ -2,7 +2,6 @@ package io.github.pyranja.hamcrest.jaxrs;
 
 import org.hamcrest.StringDescription;
 import org.junit.Test;
-import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
@@ -17,11 +16,6 @@ import static org.junit.Assume.assumeThat;
 @RunWith(Theories.class)
 public class ResponseStatusMatcherTest {
 
-  @DataPoints
-  public static final Response.Status[] statuses = Response.Status.values();
-
-  private final StringDescription description = new StringDescription();
-
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullReference() throws Exception {
     subjectExpecting(null);
@@ -29,6 +23,7 @@ public class ResponseStatusMatcherTest {
 
   @Theory
   public void shouldIncludeExpectedReasonAndCodeInDescription(final Response.Status status) throws Exception {
+    final StringDescription description = new StringDescription();
     subjectExpecting(status).describeTo(description);
     assertThat(description.toString(), containsString(status.toString()));
     assertThat(description.toString(), containsString(Objects.toString(status.getStatusCode())));
@@ -48,6 +43,7 @@ public class ResponseStatusMatcherTest {
   @Theory
   public void shouldIncludeFoundReasonAndCodeInMismatchDescription(final Response.Status status, final Response.Status other) throws Exception {
     assumeThat(status, not(equalTo(other)));
+    final StringDescription description = new StringDescription();
     subjectExpecting(status).describeMismatch(MockResponse.with(other), description);
     assertThat(description.toString(), containsString(other.toString()));
     assertThat(description.toString(), containsString(Objects.toString(other.getStatusCode())));
@@ -56,5 +52,4 @@ public class ResponseStatusMatcherTest {
   private ResponseStatusMatcher subjectExpecting(final Response.Status expected) {
     return new ResponseStatusMatcher(expected);
   }
-
 }
