@@ -27,4 +27,13 @@ public final class JaxrsMatchers {
   public static Matcher<Response> hasStatus(final int expected) {
     return new ResponseStatusMatcher(Response.Status.fromStatusCode(expected));
   }
+
+  /**
+   * Matches if the examined {@link Response} has a status belonging to the given response family.
+   *
+   * @param expected family of expected http status
+   */
+  public static Matcher<Response> hasFamily(final Response.Status.Family expected) {
+    return new ResponseStatusFamilyMatcher(expected);
+  }
 }
