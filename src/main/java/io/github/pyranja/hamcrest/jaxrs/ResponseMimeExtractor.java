@@ -8,8 +8,8 @@ import javax.ws.rs.core.Response;
 
 import static java.util.Objects.requireNonNull;
 
-final class ResponseMimeMatcher extends FeatureMatcher<Response, MediaType> {
-  public ResponseMimeMatcher(final Matcher<? super MediaType> expectation) {
+final class ResponseMimeExtractor extends FeatureMatcher<Response, MediaType> {
+  public ResponseMimeExtractor(final Matcher<? super MediaType> expectation) {
     super(requireNonNull(expectation), "response with content type", "content type");
   }
 

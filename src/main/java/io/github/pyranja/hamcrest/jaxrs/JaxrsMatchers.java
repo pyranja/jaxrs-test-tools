@@ -1,7 +1,6 @@
 package io.github.pyranja.hamcrest.jaxrs;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.core.IsEqual;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,11 +40,13 @@ public final class JaxrsMatchers {
   }
 
   /**
-   * Matches if the examined {@link Response} has a media type equal to the given one.
+   * Apply the given {@link Matcher expecation} to the content type of a {@link Response}.
+   * For example:
+   * <pre>assertThat(response, hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)))</pre>
    *
-   * @param expected exact media type that is expected
+   * @param expectation describes the expected content type
    */
-  public static Matcher<Response> mimeExactly(final MediaType expected) {
-    return new ResponseMimeMatcher(new IsEqual<>(expected));
+  public static Matcher<Response> hasMime(final Matcher<? super MediaType> expectation) {
+    return new ResponseMimeExtractor(expectation);
   }
 }
