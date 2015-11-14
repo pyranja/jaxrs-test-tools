@@ -45,8 +45,21 @@ public final class JaxrsMatchers {
    * <pre>assertThat(response, hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)))</pre>
    *
    * @param expectation describes the expected content type
+   * @see #compatibleTo(MediaType)
    */
   public static Matcher<Response> hasMime(final Matcher<? super MediaType> expectation) {
     return new ResponseMimeExtractor(expectation);
+  }
+
+  /**
+   * Matches if a {@link MediaType} is {@link MediaType#isCompatible(MediaType) compatible} with
+   * the expected.
+   *
+   * @param expected specifies the expected media type
+*    @see IsCompatibleMediaType
+   * @see #hasMime(Matcher)
+   */
+  public static Matcher<MediaType> compatibleTo(final MediaType expected) {
+    return new IsCompatibleMediaType(expected);
   }
 }
