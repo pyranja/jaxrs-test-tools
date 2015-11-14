@@ -4,7 +4,8 @@ import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.equalTo;
+import static io.github.pyranja.hamcrest.Hamcrest.isFalse;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -15,34 +16,26 @@ public class FeatureMatcherTest {
 
   @Test
   public void shouldRejectIfExpectationNotMet() throws Exception {
-    final FeatureMatcher<?, ?> subject = new FakeIntegerFeatureMatcher(Hamcrest.contradiction());
-    assertThat(subject.matches(new Object()), equalTo(false));
+    assertThat(Integer.MIN_VALUE, not(matching(Hamcrest.contradiction())));
   }
 
   @Test
   public void shouldMatchIfExpectationIsMet() throws Exception {
-    final FeatureMatcher<?, ?> subject = new FakeIntegerFeatureMatcher(Hamcrest.tautology());
-    assertThat(subject.matches(new Object()), equalTo(true));
+    assertThat(Integer.MIN_VALUE, matching(Hamcrest.tautology()));
   }
 
   @Test
   public void shouldRejectNullInput() throws Exception {
-    final FeatureMatcher<?, ?> subject = new FakeIntegerFeatureMatcher(Hamcrest.tautology());
-    assertThat(subject.matches(null), equalTo(false));
+    assertThat(null, not(matching(Hamcrest.tautology())));
   }
 
   @Test
   public void shouldRejectInputOnTypeMismatch() throws Exception {
-    // auto type detection only works on 'real' sub-classes, where the method signature of
-    // featureValueOf has a concrete return type, not a generic one
-    final FeatureMatcher<Integer, Integer> subject =
-      new FeatureMatcher<Integer, Integer>(Hamcrest.<Integer>tautology(), "test", "test") {
-        @Override
-        protected Integer featureValueOf(final Integer actual) {
-          return Integer.MIN_VALUE;
-        }
-      };
-    assertThat(subject.matches(Long.MAX_VALUE), equalTo(false));
+    assertThat(matching(Hamcrest.tautology()).matches(Long.MAX_VALUE), isFalse());
+  }
+
+  private FakeIntegerFeatureMatcher matching(final Matcher<Object> contradiction) {
+    return new FakeIntegerFeatureMatcher(contradiction);
   }
 
   private static class FakeIntegerFeatureMatcher extends FeatureMatcher<Integer, Integer> {
