@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import javax.ws.rs.core.MediaType;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 
 @RunWith(Theories.class)
@@ -26,44 +26,51 @@ public class IsCompatibleMediaTypeTest {
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectation() throws Exception {
-    subjectExpecting(null);
+    matching(null);
   }
 
   @Theory
   public void shouldMatchOnEqualMediaType(final MediaType mime) throws Exception {
-    final IsCompatibleMediaType subject = subjectExpecting(mime);
-    assertThat(subject.matches(mime), equalTo(true));
+    assertThat(mime, matching(mime));
   }
 
   @Theory
   public void shouldMatchIfTypeMatchesAndSubtypeIsWildcard(final MediaType mime) throws Exception {
-    final IsCompatibleMediaType subject = subjectExpecting(new MediaType(mime.getType(), "*"));
-    assertThat(subject.matches(mime), equalTo(true));
+    assertThat(mime, matching(new MediaType(mime.getType(), MediaType.MEDIA_TYPE_WILDCARD)));
   }
 
   @Theory
   public void shouldMatchIfExpectingWildcard(final MediaType mime) throws Exception {
-    final IsCompatibleMediaType subject = subjectExpecting(MediaType.WILDCARD_TYPE);
-    assertThat(subject.matches(mime), equalTo(true));
+    assertThat(mime, matching(MediaType.WILDCARD_TYPE));
   }
 
   @Theory
   public void shouldRejectIfTypeNotMatching(final MediaType mime) throws Exception {
-    final IsCompatibleMediaType subject =
-      subjectExpecting(new MediaType("illegal", mime.getSubtype()));
-    assertThat(subject.matches(mime), equalTo(false));
+    assertThat(mime, not(matching(new MediaType("illegal", mime.getSubtype()))));
   }
 
   @Theory
   public void shouldRejectIfTotalMisMatch(final MediaType mime) throws Exception {
-    final IsCompatibleMediaType subject =
-      subjectExpecting(new MediaType("illegal", "type"));
-    assertThat(subject.matches(mime), equalTo(false));
+    assertThat(mime, not(matching(new MediaType("illegal", "type"))));
+  }
+
+  @Theory
+  public void shouldMatchIfSubtypeSuffixMatches(final MediaType mime) throws Exception {
+    // construct a mime with matching suffix
+    final MediaType actual = new MediaType(mime.getType(), "test-data+" + mime.getSubtype());
+    assertThat(actual, matching(mime));
+  }
+
+  @Theory
+  public void shouldRejectIfExpectingSuffixedAndActualIsGeneralSubType(final MediaType mime) throws Exception {
+    // construct a mime with extended suffix
+    final MediaType suffixed = new MediaType(mime.getType(), "test-data+" + mime.getSubtype());
+    assertThat(mime, not(matching(suffixed)));
   }
 
   @Theory
   public void shouldIncludeExpectedTypeInDescription(final MediaType expected) throws Exception {
-    final IsCompatibleMediaType subject = subjectExpecting(expected);
+    final IsCompatibleMediaType subject = matching(expected);
     final StringDescription description = new StringDescription();
     subject.describeTo(description);
     assertThat(description.toString(), containsString(expected.toString()));
@@ -71,13 +78,13 @@ public class IsCompatibleMediaTypeTest {
 
   @Theory
   public void shouldIncludeActualMimeStringInMismatchDescription(final MediaType actual) throws Exception {
-    final IsCompatibleMediaType subject = subjectExpecting(new MediaType("illegal", "type"));
+    final IsCompatibleMediaType subject = matching(new MediaType("illegal", "type"));
     final StringDescription description = new StringDescription();
     subject.describeMismatch(actual, description);
     assertThat(description.toString(), containsString(actual.toString()));
   }
 
-  private IsCompatibleMediaType subjectExpecting(final MediaType expected) {
+  private IsCompatibleMediaType matching(final MediaType expected) {
     return new IsCompatibleMediaType(expected);
   }
 }

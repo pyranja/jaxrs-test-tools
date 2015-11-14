@@ -53,7 +53,10 @@ public final class JaxrsMatchers {
 
   /**
    * Matches if a {@link MediaType} is {@link MediaType#isCompatible(MediaType) compatible} with
-   * the expected.
+   * the expectation. In addition to jax-rs compatibility, this matcher accepts content types using
+   * an extended syntax as defined in <a href="https://www.ietf.org/rfc/rfc3023.txt">RFC 3023</a>.
+   * For example a matcher expecting {@code application/xml}, will accept an actual content type
+   * like {@code application/xhtml+xml}, as the subtype suffix is matching.
    *
    * @param expected specifies the expected media type
 *    @see IsCompatibleMediaType
