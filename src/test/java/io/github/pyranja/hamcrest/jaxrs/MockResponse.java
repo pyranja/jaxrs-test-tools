@@ -16,7 +16,7 @@ public final class MockResponse {
   /**
    * Create mock response with given status only.
    */
-  static Response with(final Response.Status status) {
+  static Response with(final Response.StatusType status) {
     final Response mock = Mockito.mock(Response.class);
     when(mock.getStatusInfo()).thenReturn(status);
     when(mock.getStatus()).thenReturn(status.getStatusCode());

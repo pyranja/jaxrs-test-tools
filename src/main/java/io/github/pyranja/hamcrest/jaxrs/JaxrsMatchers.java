@@ -13,24 +13,6 @@ public final class JaxrsMatchers {
   private JaxrsMatchers() { /* no instances */ }
 
   /**
-   * Matches if the examined {@link Response} has the given http status.
-   *
-   * @param expected the expected response status
-   */
-  public static Matcher<Response> hasStatus(final Response.Status expected) {
-    return new ResponseStatusMatcher(expected);
-  }
-
-  /**
-   * Matches if the examined {@link Response} has the given http status.
-   *
-   * @param expected the expected response status code.
-   */
-  public static Matcher<Response> hasStatus(final int expected) {
-    return new ResponseStatusMatcher(Response.Status.fromStatusCode(expected));
-  }
-
-  /**
    * Matches if the examined {@link Response} has a status belonging to the given response family.
    *
    * @param expected family of expected http status
@@ -40,12 +22,31 @@ public final class JaxrsMatchers {
   }
 
   /**
-   * Apply the given {@link Matcher expecation} to the content type of a {@link Response}.
+   * Apply the given {@link Matcher expectation} to the status of a {@link Response}.
    * For example:
-   * <pre>assertThat(response, hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)))</pre>
+   * <pre>
+   *   assertThat(response, hasStatus(equalTo(Response.Status.NOT_FOUND)))
+   * </pre>
+   *
+   * @param expectation describes the expected response status
+   */
+  @SuppressWarnings("unchecked")
+  public static Matcher<Response> hasStatus(final Matcher<? extends Response.StatusType> expectation) {
+    // different generic wildcards to ease interoperability with jax-rs status enum
+    // casting here is safe, as matched objects are always type checked at runtime
+    return new ResponseStatusExtractor((Matcher<? super Response.StatusType>) expectation);
+  }
+
+  /**
+   * Apply the given {@link Matcher expectation} to the content type of a {@link Response}.
+   * For example:
+   * <pre>
+   *   assertThat(response, hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)))
+   * </pre>
+   *
+   * @see #compatibleTo(MediaType)
    *
    * @param expectation describes the expected content type
-   * @see #compatibleTo(MediaType)
    */
   public static Matcher<Response> hasMime(final Matcher<? super MediaType> expectation) {
     return new ResponseMimeExtractor(expectation);
@@ -58,9 +59,10 @@ public final class JaxrsMatchers {
    * For example a matcher expecting {@code application/xml}, will accept an actual content type
    * like {@code application/xhtml+xml}, as the subtype suffix is matching.
    *
-   * @param expected specifies the expected media type
-*    @see IsCompatibleMediaType
+   * @see IsCompatibleMediaType
    * @see #hasMime(Matcher)
+   *
+   * @param expected specifies the expected media type
    */
   public static Matcher<MediaType> compatibleTo(final MediaType expected) {
     return new IsCompatibleMediaType(expected);
