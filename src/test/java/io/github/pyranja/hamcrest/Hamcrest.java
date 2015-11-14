@@ -2,9 +2,24 @@ package io.github.pyranja.hamcrest;
 
 import org.hamcrest.CustomMatcher;
 import org.hamcrest.Matcher;
+import org.hamcrest.core.IsEqual;
 
 public final class Hamcrest {
   private Hamcrest() { /* no instances */ }
+
+  /**
+   * Expect {@link Boolean#TRUE}
+   */
+  public static Matcher<Boolean> isTrue() {
+    return new IsEqual<>(Boolean.TRUE);
+  }
+
+  /**
+   * Expect {@link Boolean#FALSE}
+   */
+  public static Matcher<Boolean> isFalse() {
+    return new IsEqual<>(Boolean.FALSE);
+  }
 
   /**
    * Create a {@link Matcher} that always matches.
