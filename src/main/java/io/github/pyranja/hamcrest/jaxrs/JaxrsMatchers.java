@@ -38,6 +38,15 @@ public final class JaxrsMatchers {
   }
 
   /**
+   * Matches if a {@link javax.ws.rs.core.Response.Status} belongs to the expected family.
+   *
+   * @param expectation specifies the expected status family
+   */
+  public static Matcher<Response.StatusType> fromFamily(final Response.Status.Family expectation) {
+    return new FromFamily(expectation);
+  }
+
+  /**
    * Apply the given {@link Matcher expectation} to the content type of a {@link Response}.
    * For example:
    * <pre>
