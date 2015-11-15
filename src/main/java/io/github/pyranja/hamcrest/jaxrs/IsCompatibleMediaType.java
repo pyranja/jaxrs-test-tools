@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import static java.util.Objects.requireNonNull;
 
-public final class IsCompatibleMediaType extends TypeSafeMatcher<MediaType> {
+final class IsCompatibleMediaType extends TypeSafeMatcher<MediaType> {
   private final MediaType expected;
 
   public IsCompatibleMediaType(final MediaType expected) {

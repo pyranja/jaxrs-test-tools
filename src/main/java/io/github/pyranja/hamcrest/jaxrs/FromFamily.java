@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 import static java.util.Objects.requireNonNull;
 
-public final class FromFamily extends TypeSafeDiagnosingMatcher<Response.StatusType> {
+final class FromFamily extends TypeSafeDiagnosingMatcher<Response.StatusType> {
   private final Response.Status.Family expected;
 
   public FromFamily(final Response.Status.Family expected) {

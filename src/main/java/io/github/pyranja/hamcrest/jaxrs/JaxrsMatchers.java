@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * Factory methods for all included JAX-RS specific {@link org.hamcrest.Matcher}.
+ * Factory methods for JAX-RS specific {@link org.hamcrest.Matcher}.
  */
 @SuppressWarnings("unused")
 public final class JaxrsMatchers {
