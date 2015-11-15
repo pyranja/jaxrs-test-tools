@@ -13,15 +13,6 @@ public final class JaxrsMatchers {
   private JaxrsMatchers() { /* no instances */ }
 
   /**
-   * Matches if the examined {@link Response} has a status belonging to the given response family.
-   *
-   * @param expected family of expected http status
-   */
-  public static Matcher<Response> hasFamily(final Response.Status.Family expected) {
-    return new ResponseStatusFamilyMatcher(expected);
-  }
-
-  /**
    * Apply the given {@link Matcher expectation} to the status of a {@link Response}.
    * For example:
    * <pre>
