@@ -7,7 +7,7 @@ before_install: mvn versions:set -DnewVersion=${TRAVIS_TAG:-"0.0.${TRAVIS_BUILD_
 
 deploy:
   provider: script
-  script: mvn deploy -DskipTests=true --settings travis-maven.xml
+  script: mvn deploy -DskipTests=true -Prelease --settings travis-maven.xml
   skip_cleanup: true
   on:
     tags: true

@@ -197,4 +197,31 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>release</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>enforce-release-invariants</id>
+                <configuration>
+                  <rules>
+                    <requireReleaseVersion/>
+                  </rules>
+                </configuration>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
