@@ -83,6 +83,12 @@
       <artifactId>mockito-core</artifactId>
       <version>1.10.19</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>  <!-- provides RuntimeDelegate -->
       <groupId>org.glassfish.jersey.core</groupId>
@@ -93,6 +99,16 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.4.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -102,6 +118,35 @@
           <source>1.7</source>
           <target>1.7</target>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-build-invariants</id>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>1.7</version>
+                </requireJavaVersion>
+                <requireMavenVersion>
+                  <version>3.0</version>
+                </requireMavenVersion>
+                <dependencyConvergence/>
+                <requireReleaseDeps/>
+                <banTransitiveDependencies>
+                  <excludes>
+                    <exclude>*:*:*:*:test</exclude>
+                  </excludes>
+                </banTransitiveDependencies>
+              </rules>
+            </configuration>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
