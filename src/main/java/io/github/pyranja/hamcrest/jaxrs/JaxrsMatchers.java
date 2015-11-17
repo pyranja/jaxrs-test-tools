@@ -22,7 +22,7 @@ public final class JaxrsMatchers {
    * @param expectation describes the expected response status
    */
   @SuppressWarnings("unchecked")
-  public static Matcher<Response> hasStatus(final Matcher<? extends Response.StatusType> expectation) {
+  public static Matcher<? super Response> hasStatus(final Matcher<? extends Response.StatusType> expectation) {
     // different generic wildcards to ease interoperability with jax-rs status enum
     // casting here is safe, as matched objects are always type checked at runtime
     return new ResponseStatusExtractor((Matcher<? super Response.StatusType>) expectation);
@@ -33,7 +33,7 @@ public final class JaxrsMatchers {
    *
    * @param expectation specifies the expected status family
    */
-  public static Matcher<Response.StatusType> fromFamily(final Response.Status.Family expectation) {
+  public static Matcher<? super Response.StatusType> fromFamily(final Response.Status.Family expectation) {
     return new FromFamily(expectation);
   }
 
@@ -48,7 +48,7 @@ public final class JaxrsMatchers {
    *
    * @param expectation describes the expected content type
    */
-  public static Matcher<Response> hasMime(final Matcher<? super MediaType> expectation) {
+  public static Matcher<? super Response> hasMime(final Matcher<? super MediaType> expectation) {
     return new ResponseMimeExtractor(expectation);
   }
 
@@ -64,7 +64,7 @@ public final class JaxrsMatchers {
    *
    * @param expected specifies the expected media type
    */
-  public static Matcher<MediaType> compatibleTo(final MediaType expected) {
+  public static Matcher<? super MediaType> compatibleTo(final MediaType expected) {
     return new IsCompatibleMediaType(expected);
   }
 }
