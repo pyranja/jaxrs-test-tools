@@ -23,9 +23,23 @@ public final class MockResponse {
     return mock;
   }
 
+  /**
+   * Create mock response with given content type.
+   */
   static Response having(final MediaType mime) {
     final Response mock = Mockito.mock(Response.class);
     when(mock.getMediaType()).thenReturn(mime);
+    return mock;
+  }
+
+  /**
+   * Create mock response with given entity
+   */
+  static <CONTENT> Response containing(final Class<CONTENT> type, final CONTENT content) {
+    final Response mock = Mockito.mock(Response.class);
+    when(mock.hasEntity()).thenReturn(true);
+    when(mock.getEntity()).thenReturn(content);
+    when(mock.readEntity(type)).thenReturn(content);
     return mock;
   }
 }
