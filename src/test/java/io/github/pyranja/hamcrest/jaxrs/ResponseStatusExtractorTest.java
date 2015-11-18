@@ -16,6 +16,7 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import io.github.pyranja.hamcrest.Hamcrest;
@@ -28,7 +29,13 @@ public class ResponseStatusExtractorTest {
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectation() throws Exception {
-    new ResponseStatusExtractor(null);
+    JaxrsMatchers.hasStatus(null);
+  }
+
+  @Test
+  public void shouldWorkThroughFactoryMethod() throws Exception {
+    assertThat(MockResponse.with(Response.Status.OK),
+      JaxrsMatchers.hasStatus(equalTo(Response.Status.OK)));
   }
 
   @Test

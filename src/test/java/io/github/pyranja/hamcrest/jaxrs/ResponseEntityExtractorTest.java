@@ -23,8 +23,8 @@ import static org.mockito.Mockito.verify;
 import io.github.pyranja.hamcrest.Hamcrest;
 import org.junit.Test;
 
-import javax.ws.rs.core.Response;
 import java.nio.charset.Charset;
+import javax.ws.rs.core.Response;
 
 public class ResponseEntityExtractorTest {
 
@@ -36,6 +36,12 @@ public class ResponseEntityExtractorTest {
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectedType() throws Exception {
     JaxrsMatchers.hasEntity(null, Hamcrest.tautology());
+  }
+
+  @Test
+  public void shouldWorkThroughFactoryMethod() throws Exception {
+    assertThat(MockResponse.containing(String.class, "test"),
+      JaxrsMatchers.hasEntity(String.class, equalTo("test")));
   }
 
   @Test

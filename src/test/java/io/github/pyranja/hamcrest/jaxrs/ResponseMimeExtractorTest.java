@@ -29,7 +29,13 @@ public class ResponseMimeExtractorTest {
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectation() throws Exception {
-    new ResponseMimeExtractor(null);
+    JaxrsMatchers.hasMime(null);
+  }
+
+  @Test
+  public void shouldWorkThroughFactoryMethod() throws Exception {
+    assertThat(MockResponse.having(MediaType.APPLICATION_XML_TYPE),
+      JaxrsMatchers.hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)));
   }
 
   @Test
