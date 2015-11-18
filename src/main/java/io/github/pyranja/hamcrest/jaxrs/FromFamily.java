@@ -16,12 +16,12 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static java.util.Objects.requireNonNull;
+
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import javax.ws.rs.core.Response;
-
-import static java.util.Objects.requireNonNull;
 
 final class FromFamily extends TypeSafeDiagnosingMatcher<Response.StatusType> {
   private final Response.Status.Family expected;

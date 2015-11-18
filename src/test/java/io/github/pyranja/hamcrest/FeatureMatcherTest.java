@@ -16,13 +16,13 @@
 
 package io.github.pyranja.hamcrest;
 
-import org.hamcrest.FeatureMatcher;
-import org.hamcrest.Matcher;
-import org.junit.Test;
-
 import static io.github.pyranja.hamcrest.Hamcrest.isFalse;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
+
+import org.hamcrest.FeatureMatcher;
+import org.hamcrest.Matcher;
+import org.junit.Test;
 
 /**
  * Define and test expected behavior of {@link FeatureMatcher}, as required by jaxrs matcher

@@ -16,14 +16,13 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static java.util.Objects.requireNonNull;
+
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-import javax.ws.rs.core.MediaType;
-
 import java.util.Locale;
-
-import static java.util.Objects.requireNonNull;
+import javax.ws.rs.core.MediaType;
 
 final class IsCompatibleMediaType extends TypeSafeMatcher<MediaType> {
   private final MediaType expected;

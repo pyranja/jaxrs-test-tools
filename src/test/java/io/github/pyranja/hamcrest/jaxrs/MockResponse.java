@@ -16,12 +16,12 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.mockito.Mockito.when;
+
 import org.mockito.Mockito;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import static org.mockito.Mockito.when;
 
 /**
  * Factory methods for jaxrs.Response mocks

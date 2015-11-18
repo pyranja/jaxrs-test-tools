@@ -16,6 +16,11 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static io.github.pyranja.hamcrest.jaxrs.JaxrsMatchers.fromFamily;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
+
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 import org.junit.experimental.theories.Theories;
@@ -23,15 +28,7 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import javax.ws.rs.core.Response;
-
 import java.util.Objects;
-
-import static io.github.pyranja.hamcrest.jaxrs.JaxrsMatchers.fromFamily;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
 
 @RunWith(Theories.class)
 public class FromFamilyTest {

@@ -16,14 +16,14 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.hamcrest.Matchers.any;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import static org.hamcrest.Matchers.any;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 public class ResponseMimeExtractorTest {
 

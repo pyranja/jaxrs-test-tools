@@ -16,6 +16,11 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static io.github.pyranja.hamcrest.jaxrs.JaxrsMatchers.compatibleTo;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertThat;
+
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -24,11 +29,6 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import javax.ws.rs.core.MediaType;
-
-import static io.github.pyranja.hamcrest.jaxrs.JaxrsMatchers.compatibleTo;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertThat;
 
 @RunWith(Theories.class)
 public class IsCompatibleMediaTypeTest {

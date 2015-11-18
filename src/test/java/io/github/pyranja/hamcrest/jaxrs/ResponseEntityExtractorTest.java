@@ -16,15 +16,15 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+
 import io.github.pyranja.hamcrest.Hamcrest;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 import java.nio.charset.Charset;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
 
 public class ResponseEntityExtractorTest {
 

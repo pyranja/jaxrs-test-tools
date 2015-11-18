@@ -16,13 +16,13 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static java.util.Objects.requireNonNull;
+
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import static java.util.Objects.requireNonNull;
 
 final class ResponseMimeExtractor extends FeatureMatcher<Response, MediaType> {
   public ResponseMimeExtractor(final Matcher<? super MediaType> expectation) {

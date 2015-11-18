@@ -91,7 +91,9 @@ public final class JaxrsMatchers {
    *    assertThat(response, hasEntity(MyBean.class, equalTo(..)));
    * </pre>
    *
-   * Consider using the shortcuts for asserting text and raw responses.
+   * <p>
+   *   <strong>Note:</strong> Consider using the shortcuts for asserting text and raw responses.
+   * </p>
    *
    * @see #hasTextEntity(Matcher)
    * @see #hasRawEntity(Matcher)

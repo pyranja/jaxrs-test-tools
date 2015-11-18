@@ -16,13 +16,13 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.junit.Assert.assertThat;
+
 import io.github.pyranja.hamcrest.Hamcrest;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
-
-import static org.junit.Assert.assertThat;
 
 public class ResponseStatusExtractorTest {
 
