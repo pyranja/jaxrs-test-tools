@@ -36,6 +36,7 @@ public final class JaxrsMatchers {
    * </pre>
    *
    * @param expectation describes the expected response status
+   * @return the matcher instance
    */
   @SuppressWarnings("unchecked")
   public static Matcher<? super Response> hasStatus(final Matcher<? extends Response.StatusType> expectation) {
@@ -48,6 +49,7 @@ public final class JaxrsMatchers {
    * Matches if a {@link javax.ws.rs.core.Response.Status} belongs to the expected family.
    *
    * @param expectation specifies the expected status family
+   * @return the matcher instance
    */
   public static Matcher<? super Response.StatusType> fromFamily(final Response.Status.Family expectation) {
     return new FromFamily(expectation);
@@ -63,6 +65,7 @@ public final class JaxrsMatchers {
    * @see #compatibleTo(MediaType)
    *
    * @param expectation describes the expected content type
+   * @return the matcher instance
    */
   public static Matcher<? super Response> hasMime(final Matcher<? super MediaType> expectation) {
     return new ResponseMimeExtractor(expectation);
@@ -79,6 +82,7 @@ public final class JaxrsMatchers {
    * @see #hasMime(Matcher)
    *
    * @param expected specifies the expected media type
+   * @return the matcher instance
    */
   public static Matcher<? super MediaType> compatibleTo(final MediaType expected) {
     return new IsCompatibleMediaType(expected);
@@ -102,6 +106,7 @@ public final class JaxrsMatchers {
    * @param type expected type of response entity
    * @param expectation describes the expected response entity
    * @param <CONTENT> expected type of response entity
+   * @return the matcher instance
    */
   public static <CONTENT> Matcher<? super Response> hasEntity(final Class<CONTENT> type,
                                                               final Matcher<? super CONTENT> expectation) {
@@ -118,6 +123,7 @@ public final class JaxrsMatchers {
    * @see #hasEntity(Class, Matcher)
    *
    * @param expectation describes the expected text
+   * @return the matcher instance
    */
   public static Matcher<? super Response> hasTextEntity(final Matcher<? super String> expectation) {
     return new ResponseEntityExtractor<>(String.class, expectation);
@@ -133,6 +139,7 @@ public final class JaxrsMatchers {
    * @see #hasEntity(Class, Matcher)
    *
    * @param expectation describes the expected binary entity
+   * @return the matcher instance
    */
   public static Matcher<? super Response> hasRawEntity(final Matcher<? super byte[]> expectation) {
     return new ResponseEntityExtractor<>(byte[].class, expectation);
