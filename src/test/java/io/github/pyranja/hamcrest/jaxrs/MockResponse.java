@@ -21,6 +21,8 @@ import static org.mockito.Mockito.when;
 import org.mockito.Mockito;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 /**
@@ -49,13 +51,25 @@ public final class MockResponse {
   }
 
   /**
-   * Create mock response with given entity
+   * Create mock response with given entity.
    */
   static <CONTENT> Response containing(final Class<CONTENT> type, final CONTENT content) {
     final Response mock = Mockito.mock(Response.class);
     when(mock.hasEntity()).thenReturn(true);
     when(mock.getEntity()).thenReturn(content);
     when(mock.readEntity(type)).thenReturn(content);
+    return mock;
+  }
+
+  /**
+   * Create mock response with given header map.
+   */
+  public static Response withHeaders(final MultivaluedMap<String, String> headers) {
+    final Response mock = Mockito.mock(Response.class);
+    final MultivaluedHashMap<String, Object> untyped =
+      new MultivaluedHashMap<String, Object>(headers);
+    when(mock.getHeaders()).thenReturn(untyped);
+    when(mock.getStringHeaders()).thenReturn(headers);
     return mock;
   }
 }

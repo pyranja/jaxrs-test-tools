@@ -16,9 +16,14 @@
 
 package io.github.pyranja.hamcrest.jaxrs;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasItem;
+
 import org.hamcrest.Matcher;
 
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 /**
@@ -143,5 +148,38 @@ public final class JaxrsMatchers {
    */
   public static Matcher<? super Response> hasRawEntity(final Matcher<? super byte[]> expectation) {
     return new ResponseEntityExtractor<>(byte[].class, expectation);
+  }
+
+  /**
+   * Apply the given {@link Matcher expectation} to the header map of a {@link Response}.
+   * For example:
+   * <pre>
+   *   assertThat(response, headers(hasEntry(equalTo("Connection"), contains("close"))));
+   * </pre>
+   *
+   * <p>
+   *   <strong>Note:</strong> Consider using the shortcut method to check for a single header value.
+   * </p>
+   *
+   * @see #hasHeader(String, String)
+   *
+   * @param expectation describes the expected header map
+   * @return the matcher instance
+   */
+  public static Matcher<? super Response> headers(final Matcher<? super MultivaluedMap<String, String>> expectation) {
+    return new ResponseHeadersExtractor(expectation);
+  }
+
+  /**
+   * Matches if a {@link Response} has a header with the expected {@code name} and {@code value}.
+   * If multiple headers with the expected name are present, at least one must have the expected
+   * value. The order of headers is ignored.
+   *
+   * @param name name of header
+   * @param value expected value
+   * @return the matcher instance
+   */
+  public static Matcher<? super Response> hasHeader(final String name, final String value) {
+    return new ResponseHeadersExtractor(hasEntry(equalTo(name), hasItem(value)));
   }
 }
