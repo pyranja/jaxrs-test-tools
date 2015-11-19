@@ -14,7 +14,7 @@ after_success:
 
 deploy:
   provider: script
-  script: mvn deploy -DskipTests=true -Prelease --settings travis-maven.xml
+  script: mvn deploy -DskipTests=true -Prelease,quick --settings travis-maven.xml
   skip_cleanup: true
   on:
     tags: true
