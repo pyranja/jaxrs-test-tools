@@ -29,13 +29,13 @@ public class ResponseStatusExtractorTest {
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectation() throws Exception {
-    JaxrsMatchers.hasStatus(null);
+    JaxrsMatchers.status(null);
   }
 
   @Test
   public void shouldWorkThroughFactoryMethod() throws Exception {
     assertThat(MockResponse.with(Response.Status.OK),
-      JaxrsMatchers.hasStatus(equalTo(Response.Status.OK)));
+      JaxrsMatchers.status(equalTo(Response.Status.OK)));
   }
 
   @Test

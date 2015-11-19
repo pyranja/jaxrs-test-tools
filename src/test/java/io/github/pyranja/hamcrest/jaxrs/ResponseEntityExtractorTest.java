@@ -30,18 +30,18 @@ public class ResponseEntityExtractorTest {
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectation() throws Exception {
-    JaxrsMatchers.hasEntity(Void.class, null);
+    JaxrsMatchers.entity(Void.class, null);
   }
 
   @Test(expected = NullPointerException.class)
   public void shouldFailFastOnNullExpectedType() throws Exception {
-    JaxrsMatchers.hasEntity(null, Hamcrest.tautology());
+    JaxrsMatchers.entity(null, Hamcrest.tautology());
   }
 
   @Test
   public void shouldWorkThroughFactoryMethod() throws Exception {
     assertThat(MockResponse.containing(String.class, "test"),
-      JaxrsMatchers.hasEntity(String.class, equalTo("test")));
+      JaxrsMatchers.entity(String.class, equalTo("test")));
   }
 
   @Test
@@ -64,13 +64,13 @@ public class ResponseEntityExtractorTest {
   @Test
   public void shortcutShouldExtractTextEntity() throws Exception {
     final Response response = MockResponse.containing(String.class, "test");
-    assertThat(response, JaxrsMatchers.hasTextEntity(equalTo("test")));
+    assertThat(response, JaxrsMatchers.textEntity(equalTo("test")));
   }
 
   @Test
   public void shortcutShouldExtractRawEntity() throws Exception {
     final byte[] payload = "test".getBytes(Charset.forName("UTF-8"));
     final Response response = MockResponse.containing(byte[].class, payload);
-    assertThat(response, JaxrsMatchers.hasRawEntity(equalTo(payload)));
+    assertThat(response, JaxrsMatchers.rawEntity(equalTo(payload)));
   }
 }

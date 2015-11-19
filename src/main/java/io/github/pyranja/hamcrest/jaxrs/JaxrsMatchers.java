@@ -37,14 +37,14 @@ public final class JaxrsMatchers {
    * Apply the given {@link Matcher expectation} to the status of a {@link Response}.
    * For example:
    * <pre>
-   *   assertThat(response, hasStatus(equalTo(Response.Status.NOT_FOUND)))
+   *   assertThat(response, status(equalTo(Response.Status.NOT_FOUND)))
    * </pre>
    *
    * @param expectation describes the expected response status
    * @return the matcher instance
    */
   @SuppressWarnings("unchecked")
-  public static Matcher<? super Response> hasStatus(final Matcher<? extends Response.StatusType> expectation) {
+  public static Matcher<? super Response> status(final Matcher<? extends Response.StatusType> expectation) {
     // different generic wildcards to ease interoperability with jax-rs status enum
     // casting here is safe, as matched objects are always type checked at runtime
     return new ResponseStatusExtractor((Matcher<? super Response.StatusType>) expectation);
@@ -64,7 +64,7 @@ public final class JaxrsMatchers {
    * Apply the given {@link Matcher expectation} to the content type of a {@link Response}.
    * For example:
    * <pre>
-   *   assertThat(response, hasMime(equalTo(MediaType.APPLICATION_XML_TYPE)))
+   *   assertThat(response, mime(equalTo(MediaType.APPLICATION_XML_TYPE)))
    * </pre>
    *
    * @see #compatibleTo(MediaType)
@@ -72,7 +72,7 @@ public final class JaxrsMatchers {
    * @param expectation describes the expected content type
    * @return the matcher instance
    */
-  public static Matcher<? super Response> hasMime(final Matcher<? super MediaType> expectation) {
+  public static Matcher<? super Response> mime(final Matcher<? super MediaType> expectation) {
     return new ResponseMimeExtractor(expectation);
   }
 
@@ -84,7 +84,7 @@ public final class JaxrsMatchers {
    * like {@code application/xhtml+xml}, as the subtype suffix is matching.
    *
    * @see IsCompatibleMediaType
-   * @see #hasMime(Matcher)
+   * @see #mime(Matcher)
    *
    * @param expected specifies the expected media type
    * @return the matcher instance
@@ -97,15 +97,15 @@ public final class JaxrsMatchers {
    * Apply the given {@link Matcher expectation} to the entity of a {@link Response}.
    * For example:
    * <pre>
-   *    assertThat(response, hasEntity(MyBean.class, equalTo(..)));
+   *    assertThat(response, entity(MyBean.class, equalTo(..)));
    * </pre>
    *
    * <p>
    *   <strong>Note:</strong> Consider using the shortcuts for asserting text and raw responses.
    * </p>
    *
-   * @see #hasTextEntity(Matcher)
-   * @see #hasRawEntity(Matcher)
+   * @see #textEntity(Matcher)
+   * @see #rawEntity(Matcher)
    * @see Response#readEntity(Class)
    *
    * @param type expected type of response entity
@@ -113,8 +113,8 @@ public final class JaxrsMatchers {
    * @param <CONTENT> expected type of response entity
    * @return the matcher instance
    */
-  public static <CONTENT> Matcher<? super Response> hasEntity(final Class<CONTENT> type,
-                                                              final Matcher<? super CONTENT> expectation) {
+  public static <CONTENT> Matcher<? super Response> entity(final Class<CONTENT> type,
+                                                           final Matcher<? super CONTENT> expectation) {
     return new ResponseEntityExtractor<>(type, expectation);
   }
 
@@ -122,15 +122,15 @@ public final class JaxrsMatchers {
    * Apply the given {@link Matcher expectation} to the text of a response entity.
    * For example:
    * <pre>
-   *   assertThat(response, hasTextEntity(equalTo("my response text")));
+   *   assertThat(response, textEntity(equalTo("my response text")));
    * </pre>
    *
-   * @see #hasEntity(Class, Matcher)
+   * @see #entity(Class, Matcher)
    *
    * @param expectation describes the expected text
    * @return the matcher instance
    */
-  public static Matcher<? super Response> hasTextEntity(final Matcher<? super String> expectation) {
+  public static Matcher<? super Response> textEntity(final Matcher<? super String> expectation) {
     return new ResponseEntityExtractor<>(String.class, expectation);
   }
 
@@ -138,15 +138,15 @@ public final class JaxrsMatchers {
    * Apply the given {@link Matcher expectation} to a raw response entity.
    * For example:
    * <pre>
-   *   assertThat(response, hasRawEntity(equalTo(new byte[] { .. })));
+   *   assertThat(response, rawEntity(equalTo(new byte[] { .. })));
    * </pre>
    *
-   * @see #hasEntity(Class, Matcher)
+   * @see #entity(Class, Matcher)
    *
    * @param expectation describes the expected binary entity
    * @return the matcher instance
    */
-  public static Matcher<? super Response> hasRawEntity(final Matcher<? super byte[]> expectation) {
+  public static Matcher<? super Response> rawEntity(final Matcher<? super byte[]> expectation) {
     return new ResponseEntityExtractor<>(byte[].class, expectation);
   }
 
