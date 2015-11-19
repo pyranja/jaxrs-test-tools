@@ -29,6 +29,7 @@
   </parent>
 
   <artifactId>hamcrest-jaxrs</artifactId>
+
   <name>hamcrest-jaxrs</name>
   <description>hamcrest matchers for JAX-RS</description>
 

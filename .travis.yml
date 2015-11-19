@@ -4,7 +4,7 @@ jdk:
 - oraclejdk8
 
 before_install:
- - mvn versions:set -DnewVersion=${TRAVIS_TAG:-"0.0.${TRAVIS_BUILD_NUMBER}-SNAPSHOT"} -DgenerateBackupPoms=false
+ - mvn versions:set -pl parent -DnewVersion=${TRAVIS_TAG:-"0.0.${TRAVIS_BUILD_NUMBER}-SNAPSHOT"} -DgenerateBackupPoms=false
  - pip install --user codecov
 
 script: mvn verify --batch-mode
