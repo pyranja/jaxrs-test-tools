@@ -25,19 +25,42 @@
     <artifactId>parent</artifactId>
     <groupId>io.github.pyranja</groupId>
     <version>0.0.0-SNAPSHOT</version>
-    <relativePath>parent/pom.xml</relativePath>
+    <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
-  <artifactId>jaxrs-test-tools</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>junit-jaxrs</artifactId>
 
-  <modules>
-    <module>parent</module>
-    <module>hamcrest</module>
-    <module>junit</module>
-  </modules>
+  <name>junit-jaxrs</name>
+  <description>support for using JAX-RS in junit tests</description>
 
-  <name>jaxrs-test-tools</name>
-  <description>utilities for testing JAX-RS applications</description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
 
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>
