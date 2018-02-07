@@ -8,4 +8,4 @@ JAX-RS test tools
 
 A set of utilities for integration testing of ReST APIs with JAX-RS.
 
-Requires JDK 1.7 or higher.
+Requires JDK 1.8.
